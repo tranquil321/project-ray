@@ -6,13 +6,17 @@ Components
 ----------
 Components are all derived from a base class `Component` and contain data which is used for some functionality of the game object. For example, the class `PhysicsComponent` will contain position, velocity, et cetera. The components contain no functions other than getters and setters.
 
+Component Manager
+-----------------
+The component manager contains a list for each type of component in the game. All components live here.
+
 Game Objects
 ------------
 A game object can be anything from a player to a currently-rolling boulder. The class `GameObject` is a container which merely contains a handle and the handles which refer to the components associated with it. It cannot be extended, and all game objects are an instance of this class.
 
 Systems
 -------
-Systems are where the functionality of the game resides. Each system contains an list of components. For example, `GraphicsSystem` contains `std:vector<GraphicsComponent>`. The systems also have functions to update the game state by iterating through the components and deciding what to do with them, add components with given parameters, remove components, and modify components on behalf of other systems which request it.
+Systems are where the functionality of the game resides. The systems have functions to update the game state by iterating through the components it is interested in and deciding what to do with them, add components with given parameters, remove components, and modify components on behalf of other systems which request it.
 
 There will be a system called `GameObjectSystem` which contains a list of all game objects. It will also contain functions for creating and destroying entities. The creation of entities will be done on a to-order basis; a function takes in the type of entity to create and where to create it, possibly with other parameters, and references an external file to decide what components need to be created and what their values need to be set to. It calls the other systems and tells them which components to create, and populates the newly created game object with the handles to these components.
 
